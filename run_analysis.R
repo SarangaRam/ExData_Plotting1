@@ -13,15 +13,15 @@
 # -  average of each variable for each activity and each subject.
 
 #set working directory to the location where the UCI HAR Dataset was unzipped
-#filePath <- paste(getwd(), "/RProjects/GettingAndCleaningDat/ProjectData/UCI-HAR-Dataset", sep<-"")
+filePath <- paste(getwd(), "/RProjects/GettingAndCleaningData/ProjectData/UCI-HAR-Dataset", sep="")
 #setwd(filePath)
 
 # Read in the data from all the  files
-features     <- read.table('./features.txt',header=FALSE) 
-activityType <- read.table('./activity_labels.txt',header=FALSE)
-subjectTrain <- read.table('./train/subject_train.txt',header=FALSE)
-xTrain       <- read.table('./train/x_train.txt',header=FALSE)
-yTrain       <- read.table('./train/y_train.txt',header=FALSE)
+features     <- read.table(paste(filePath, '/features.txt', sep=""),header=FALSE) 
+activityType <- read.table(paste(filePath, '/activity_labels.txt',sep=""),header=FALSE)
+subjectTrain <- read.table(paste(filePath, '/train/subject_train.txt',sep=""),header=FALSE)
+xTrain       <- read.table(paste(filePath, '/train/x_train.txt',sep=""),header=FALSE)
+yTrain       <- read.table(paste(filePath, '/train/y_train.txt',sep=""),header=FALSE)
 
 # Assign column names to the data tables above
 colnames(activityType)  <- c('activity_id','activity_type')
@@ -47,9 +47,9 @@ colnames(xTrain) <- features[colInd, 2]
 trainingDS <- cbind(subjectTrain,yTrain,xTrain)
 
 #Similarly Load, Name Columns and Merge test data
-subjectTest <- read.table('./test/subject_test.txt',header=FALSE)
-xTest       <- read.table('./test/x_test.txt',header=FALSE)
-yTest       <- read.table('./test/y_test.txt',header=FALSE)
+subjectTest <- read.table(paste(filePath, '/test/subject_test.txt',sep=""),header=FALSE)
+xTest       <- read.table(paste(filePath, '/test/x_test.txt',sep=""),header=FALSE)
+yTest       <- read.table(paste(filePath, '/test/y_test.txt',sep=""),header=FALSE)
 
 colnames(subjectTest) <- "subject_id"
 colnames(yTest)       <- "activity_id"
@@ -79,7 +79,7 @@ tidyData <-merge(activityType, tidyData)
 tidyData<- tidyData[-c(1)]
 
 # Export the tidyData set 
-write.table(tidyData, './tidyData.txt',row.names=TRUE,sep='\t', quote=FALSE)
+write.table(tidyData, paste(filePath, '/tidydata.txt',sep="" ),row.names=FALSE,sep='\t', quote=FALSE)
 
 
 
